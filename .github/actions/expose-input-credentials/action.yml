@@ -1,0 +1,11 @@
+name: 'Expose input credentials'
+description: 'Expose input credentials'
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+            NPM_TOKEN=$(cat $GITHUB_EVENT_PATH | jq '.inputs.NPM_TOKEN' | sed 's/"//g' )
+            echo "::add-mask::$NPM_TOKEN"
+            echo "NPM_TOKEN=$NPM_TOKEN" >> $GITHUB_ENV
+      shell: bash
