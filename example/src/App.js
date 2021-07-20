@@ -224,7 +224,7 @@ const stories2 = [
 		duration: 5000
 	},
 		{
-		url: 'http://www.exit109.com/~dnn/clips/RW20seconds_1.mp4',
+		url: 'https://i.imgur.com/uXjLgCl.gifv',
 		type: 'video'
 	},
 		{
