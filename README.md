@@ -4,6 +4,7 @@
 ###A React component for Instagram like stories
 
 ![](https://img.shields.io/npm/v/@intive-org/react-stories.svg)
+![](https://camo.githubusercontent.com/df1fd6655472a008d21057736be3b95a2bced4e9ea6db7c393e7c960a4d9e450/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2532302532302546302539462539332541362546302539462539412538302d73656d616e7469632d2d72656c656173652d6531303037392e737667)
 
 It's a fork from [https://github.com/mohitk05/react-insta-stories](https://github.com/mohitk05/react-insta-stories)
 
