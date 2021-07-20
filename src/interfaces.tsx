@@ -21,6 +21,7 @@ export interface ReactInstaStoriesProps {
     onStoryEnd?: Function;
     keyboardNavigation?: boolean;
     clickableAreaStyles?: Record<string, any>;
+    onSlideTransition?: Function;
 }
 
 export interface GlobalCtx {
@@ -43,6 +44,7 @@ export interface GlobalCtx {
     onStoryEnd?: Function;
     keyboardNavigation?: boolean;
     clickableAreaStyles?: Record<string, any>;
+    onSlideTransition?: Function;
 }
 
 type NumberOrString = number | string;

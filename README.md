@@ -174,6 +174,26 @@ Here `stories` is an array of story objects, which can be of various types as de
     }
 ```
 
+- `onSlideTransition`
+	- Type: `Function`
+	- Required: `false`
+	- Description: This callback will be fired whenever a transition between slides will take place. It will be called with arguments like:
+		- `direction` - `left` or `right` - depends on the change direction
+		- `currentidx` - `number` - actual slide from where the changes is starting
+		- `nextId` - `number` or `undefined` - either the next slide id or if we get out of range then `undefined`
+	- Example:
+```javascript
+const onSlideTransition = (direction, currentIdx, nextIdx) => {
+	if (direction === 'left' && nextIdx === undefined) {
+		console.log('going left from the first slide')
+	} else if (direction === 'right' && nextIdx === undefined) {
+		console.log('going right from the last slide')
+	} else {
+		console.log('going ', direction, 'from slide ', currentIdx, ' to slide ', nextIdx)
+	}
+}
+```
+
 
 ### Story object
 
