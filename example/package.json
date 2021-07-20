@@ -8,6 +8,7 @@
 		"start": "webpack-dev-server --open --hot",
 		"test": "echo \"No test specified\" && exit 0",
 		"build": "webpack --mode production",
+		"postbuild": "cp RW20seconds_2.mp4 dist/RW20seconds_2.mp4",
 		"build:dev": "webpack --mode development",
 		"watch": "webpack --watch"
 	},
