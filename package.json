@@ -12,7 +12,7 @@
 		"example": "cd example && npm start",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"predeploy": "npm run buildall",
-		"deploy": "gh-pages -d example/dist",
+		"deploy": "gh-pages -d example/dist -u 'github-actions-bot <support+actions@github.com>'",
 		"buildall": "npm install && npm run build && cd example && npm install && npm run build"
 	},
 	"repository": {
@@ -29,7 +29,7 @@
 	"bugs": {
 		"url": "https://github.com/intive/react-stories/issues"
 	},
-	"homepage": "https://github.com/intive/react-stories#readme",
+	"homepage": "https://intive.github.io/react-stories",
 	"devDependencies": {
 		"@babel/core": "^7.5.5",
 		"@babel/preset-env": "^7.5.5",

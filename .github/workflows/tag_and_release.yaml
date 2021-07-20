@@ -40,7 +40,9 @@ jobs:
       with:
         node-version: 14.17.3
     - name: Deploy demo page
-      run: npm run deploy
+      run: |
+        git remote set-url origin https://git:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+        npm run deploy
       env:
         CI: true
         HUSKY: 0
