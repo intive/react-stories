@@ -2,8 +2,8 @@ body {
 	margin: 0;
 	padding: 0;
 	font-family: sans-serif;
-	background: rgb(128,203,17);
-background: linear-gradient(152deg, rgba(128,203,17,1) 0%, rgba(9,121,89,1) 64%, rgba(0,149,255,1) 100%);
+	background: rgb(170,221,96);
+	background: linear-gradient(152deg, rgba(170,221,96,1) 0%, rgba(2,128,92,1) 45%, rgba(255,153,83,1) 100%);
 }
 
 p {

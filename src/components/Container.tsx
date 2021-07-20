@@ -15,7 +15,16 @@ export default function () {
     let mousedownId = useRef<any>();
     let isMounted = useRef<boolean>(true);
 
-    const { width, height, loop, currentIndex, isPaused, keyboardNavigation, storyContainerStyles = {} } = useContext<GlobalCtx>(GlobalContext);
+    const { 
+        width,
+        height,
+        loop,
+        currentIndex,
+        isPaused,
+        keyboardNavigation,
+        storyContainerStyles = {},
+        clickableAreaStyles = {}
+    } = useContext<GlobalCtx>(GlobalContext);
     const { stories } = useContext<StoriesContextInterface>(StoriesContext);
 
     useEffect(() => {
@@ -134,9 +143,21 @@ export default function () {
                 story={stories[currentId]}
                 getVideoDuration={getVideoDuration}
             />
-            <div style={styles.overlay}>
-                <div style={{ width: '50%', zIndex: 999 }} onTouchStart={debouncePause} onTouchEnd={mouseUp('previous')} onMouseDown={debouncePause} onMouseUp={mouseUp('previous')} />
-                <div style={{ width: '50%', zIndex: 999 }} onTouchStart={debouncePause} onTouchEnd={mouseUp('next')} onMouseDown={debouncePause} onMouseUp={mouseUp('next')} />
+            <div style={{...styles.overlay, ...clickableAreaStyles.overlay}}>
+                <div 
+                    style={{...styles.leftPane, ...clickableAreaStyles.leftPane}}
+                    onTouchStart={debouncePause}
+                    onTouchEnd={mouseUp('previous')}
+                    onMouseDown={debouncePause}
+                    onMouseUp={mouseUp('previous')} 
+                />
+                <div 
+                    style={{...styles.rightPane, ...clickableAreaStyles.rightPane}}
+                    onTouchStart={debouncePause}
+                    onTouchEnd={mouseUp('next')}
+                    onMouseDown={debouncePause}
+                    onMouseUp={mouseUp('next')} 
+                />
             </div>
         </div>
     )
@@ -152,7 +173,24 @@ const styles = {
     overlay: {
         position: 'absolute',
         height: 'inherit',
-        width: 'inherit',
-        display: 'flex'
+        width: 'inherit'
+    },
+    leftPane: {
+        boxSizing: 'border-box',
+        position: 'absolute',
+        width: '50%',
+        zIndex: 999,
+        left:0,
+        top:0,
+        height: '100%'
+    },
+    rightPane: { 
+        position: 'absolute',
+        boxSizing: 'border-box',
+        width: '50%',
+        zIndex: 999,
+        top:0,
+        right: 0,
+        height: '100%'
     }
 }
