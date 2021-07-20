@@ -11,9 +11,9 @@
 		"start": "webpack --watch --mode development",
 		"example": "cd example && npm start",
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"predeploy": "cd example && npm install && npm run build",
+		"predeploy": "npm run buildall",
 		"deploy": "gh-pages -d example/dist",
-		"buildall": "npm install && webpack --mode production && cd example && npm install && npm run build"
+		"buildall": "npm install && npm run build && cd example && npm install && npm run build"
 	},
 	"repository": {
 		"type": "git",
