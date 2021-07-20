@@ -1,5 +1,8 @@
 <h1 style="margin: 0" align="center">react-insta-stories</h1>
 <p align="center">A React component for Instagram like stories</p>
+<div align="center">
+<img target="_blank" alt="NPM" src="https://img.shields.io/npm/v/@intive-org/react-stories.svg" />
+</div>
 
 It's a fork from [https://github.com/mohitk05/react-insta-stories](https://github.com/mohitk05/react-insta-stories)
 
@@ -8,7 +11,7 @@ It's a fork from [https://github.com/mohitk05/react-insta-stories](https://githu
 ## Install
 
 ```bash
-npm install @intive/react-insta-stories --registry=https://npm.pkg.github.com
+npm install @intive-org/react-stories
 ```
 
 ## Demo

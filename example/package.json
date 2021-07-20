@@ -1,5 +1,5 @@
 {
-	"name": "react-insta-stories-example",
+	"name": "@intive-org/react-stories-example",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
@@ -23,7 +23,6 @@
 		"html-webpack-plugin": "^4.5.0",
 		"mini-css-extract-plugin": "^0.11.3",
 		"react-hot-loader": "^4.12.19",
-		"react-insta-stories": "file:..",
 		"style-loader": "^1.2.1",
 		"webpack": "^4.42.0",
 		"webpack-cli": "^3.3.11",
@@ -39,6 +38,7 @@
 		]
 	},
 	"dependencies": {
+		"@intive-org/react-stories": "file:..",
 		"react-dom": "^16.13.1"
 	}
 }
