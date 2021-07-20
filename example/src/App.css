@@ -2,10 +2,12 @@ body {
 	margin: 0;
 	padding: 0;
 	font-family: sans-serif;
+	background: rgb(128,203,17);
+background: linear-gradient(152deg, rgba(128,203,17,1) 0%, rgba(9,121,89,1) 64%, rgba(0,149,255,1) 100%);
 }
 
 p {
-	margin: 5px 0;
+	margin: 15px 0;
 }
 
 .App {
@@ -14,19 +16,36 @@ p {
 	justify-content: center;
 	align-items: center;
 	font-family: 'Inter', sans-serif;
-	height: 87vh;
+	align-items: start;
 }
 
-.stories {
-	filter: drop-shadow(0 20px 30px #aaa);
+.stories-container {
+	filter: drop-shadow(0 20px 30px rgba(0,0,0, 0.5));
+	width: 360px;
+	height: 640px;
+}
+
+.web-console {
+	display: block;
+	height: 250px;
+	overflow-y: auto;
+}
+.console-line {
+	background-color: #e3e3e3;
+	padding: 0 3px;
 }
 
 .left {
-	display: flex;
-	flex-direction: column;
+	display: inline-block;
 	margin-right: 10rem;
-	justify-content: flex-start;
 	max-width: 400px;
+}
+
+.right {
+	display: inline-block;
+	top: 10px;
+	width: 400px;
+	position: sticky;
 }
 
 .seeMore {
