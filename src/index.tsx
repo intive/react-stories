@@ -25,7 +25,8 @@ const ReactInstaStories = function (props: ReactInstaStoriesProps) {
         onStoryEnd: props.onStoryEnd,
         onAllStoriesEnd: props.onAllStoriesEnd,
         keyboardNavigation: props.keyboardNavigation,
-        clickableAreaStyles: props.clickableAreaStyles
+        clickableAreaStyles: props.clickableAreaStyles,
+        onSlideTransition: props.onSlideTransition
     }
     const [stories, setStories] = useState<{ stories: Story[] }>({ stories: generateStories(props.stories, renderers) });
     useEffect(() => {

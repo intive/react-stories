@@ -23,7 +23,8 @@ export default function () {
         isPaused,
         keyboardNavigation,
         storyContainerStyles = {},
-        clickableAreaStyles = {}
+        clickableAreaStyles = {},
+        onSlideTransition
     } = useContext<GlobalCtx>(GlobalContext);
     const { stories } = useContext<StoriesContextInterface>(StoriesContext);
 
@@ -75,33 +76,39 @@ export default function () {
     }
 
     const setCurrentIdWrapper = (callback) => {
-        setCurrentId(callback);
-        toggleState('pause', true);
+        const {direction, prev, nextIdx} = callback(currentId)
+        setCurrentId(nextIdx);
+        onSlideTransition && onSlideTransition(direction, prev, nextIdx === prev ? undefined : nextIdx)
     }
 
     const previous = () => {
-        setCurrentIdWrapper(prev => prev > 0 ? prev - 1 : prev)
+        setCurrentIdWrapper(prev => {
+            const nextIdx = prev > 0 ? prev - 1 : prev
+            return {direction: 'left', prev, nextIdx}
+        })
     }
 
     const next = () => {
+        const nextStoryIdForLoop = prev => {
+            const nextIdx = (prev + 1) % stories.length
+            return {direction: 'right', prev, nextIdx}
+        }
+        const nextStoryId = prev => {
+            if (prev < stories.length - 1) {
+                const nextIdx = prev + 1
+                return {direction: 'right', prev, nextIdx}
+            }
+            
+            return {direction: 'right', prev}
+        }
+
         if (isMounted.current) {
             if (loop) {
-                updateNextStoryIdForLoop()
+                setCurrentIdWrapper(nextStoryIdForLoop)
             } else {
-                updateNextStoryId()
+                setCurrentIdWrapper(nextStoryId)
             }
         }
-    };
-
-    const updateNextStoryIdForLoop = () => {
-        setCurrentIdWrapper(prev => (prev + 1) % stories.length)
-    }
-
-    const updateNextStoryId = () => {
-        setCurrentIdWrapper(prev => {
-            if (prev < stories.length - 1) return prev + 1
-            return prev
-        })
     }
 
     const debouncePause = (e: React.MouseEvent | React.TouchEvent) => {

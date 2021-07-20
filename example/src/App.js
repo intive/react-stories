@@ -21,6 +21,16 @@ function App() {
 		})
 	}
 
+	const onSlideTransition = (direction, currentIdx, nextIdx) => {
+		if (direction === 'left' && nextIdx === undefined) {
+			updateWebConsole('going left from the first slide')
+		} else if (direction === 'right' && nextIdx === undefined) {
+			updateWebConsole('going right from the last slide')
+		} else {
+			updateWebConsole('going ', direction, 'from slide ', currentIdx, ' to slide ', nextIdx)
+		}
+	}
+
 	useEffect(() => {
 		if (configuration.showClickableArea) {
 			setClickableAreaSettings(prev => {
@@ -67,7 +77,7 @@ function App() {
 
 				</h2>
 				<p>
-					<a href="https://www.npmjs.com/package/react-insta-stories">
+					<a href="https://www.npmjs.com/package/@intive-org/react-stories">
 						<img target="_blank" alt="NPM" src="https://img.shields.io/npm/v/@intive-org/react-stories.svg" />
 					</a>
 					"semantic release", linter, master Ci test
@@ -87,40 +97,80 @@ function App() {
 					<a href="https://github.com/intive/react-stories">Documentation →</a>
 				</p>
 
+				<h3>Navigation</h3>
 				<p>
-					<h3>Navigation</h3>
 					<div style={{ background: '#eee', padding: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 5, width: 'auto' }}><p>◀ Tap left for previous story</p>
 						<p>▶︎ Tap right for next story</p>
 						<p>◉ Press and hold to pause</p>
 						<p><button onClick={() => {setIsPlaying(play => !play)}}>{isPlaying ? 'Pause' : 'Play'}</button></p>
 					</div>
 				</p>
-				<p>
-					<h3>Configuration</h3>
-					<p style={code}>
-						<div>
-							<input
-								id="configuration-clickable-areas"
-								type="checkbox" 
-								onChange={() => setConfiguration(prev => {
-									return {
-										...prev,
-										showClickableArea: !prev.showClickableArea
-									}
-								})}
-								defaultChecked={configuration.showClickableArea}
+				
+				<h3>Configuration</h3>
+				<p style={code}>
+					<div>
+						<input
+							id="configuration-clickable-areas"
+							type="checkbox" 
+							onChange={() => setConfiguration(prev => {
+								return {
+									...prev,
+									showClickableArea: !prev.showClickableArea
+								}
+							})}
+							defaultChecked={configuration.showClickableArea}
 						/>
-						<label for="configuration-clickable-areas" >
+						<label htmlFor="configuration-clickable-areas" >
 							Show clickable areas
 						</label>
-						</div>
-					</p>
+					</div>
+					<div>
+					<input
+							id="configuration-stories-length"
+							type="checkbox" 
+							disabled
+						/>
+						<label htmlFor="configuration-stories-length" >
+							Set stories length
+						</label>
+					</div>
+					<div>
+						<input
+							id="configuration-default-interval"
+							type="checkbox" 
+							disabled
+						/>
+						<label htmlFor="configuration-default-interval" >
+							Change default interval
+						</label>
+					</div>
+					<div>
+						<input
+							id="configuration-keyboard-navigation"
+							type="checkbox" 
+							disabled
+						/>
+						<label htmlFor="configuration-keyboard-navigation" >
+							Enable/Disable keyboard navigation
+						</label>
+					</div>
+					<div>
+						<input
+							id="configuration-viewport-size"
+							type="checkbox" 
+							disabled
+						/>
+						<label htmlFor="configuration-viewport-size" >
+							Change Viewport size
+						</label>
+					</div>
 				</p>
+				
+				<h3>Console</h3>
 				<p>
-					<h3>Console</h3>
-					<div style={code}>
-							{webConsole.map(item => {
-								return (<p className="console-line">{item}</p>)
+					<div style={code} className="web-console">
+							{webConsole.map((item, idx) => {
+								return (<p key={idx} className="console-line">{item}</p>)
 							})}
 					</div>
 				</p>
@@ -135,13 +185,14 @@ function App() {
 					width={'100%'}
 					height={'100%'}
 					keyboardNavigation
-					defaultInterval={1500}
+					defaultInterval={5000}
 					stories={stories2}
 					onStoryEnd={(s, st) => updateWebConsole('story with index ' + s +  ' ended')}
 					onAllStoriesEnd={(s, st) => updateWebConsole('all stories ended', s)}
 					onStoryStart={(s, st) => updateWebConsole('story with index ' + s + ' started')}
 					storyContainerStyles={{ borderRadius: 8, overflow: 'hidden' }}
 					clickableAreaStyles={clickableAreaSettings}
+					onSlideTransition={onSlideTransition}
 				/>
 			</div>
 		</div>
@@ -162,6 +213,25 @@ const Story2 = ({ action, isPaused }) => {
 
 const stories2 = [
 	{
+		content: ({ action, story }) => {
+			return <WithSeeMore story={story} action={action}><div style={{ background: 'snow', padding: 20, height: '100%' }}>
+				<h1 style={{ marginTop: '100%', marginBottom: 0 }}>🌝</h1>
+				<h1 style={{ marginTop: 5 }}>We have our good old image and video stories, just the same.</h1>
+			</div></WithSeeMore>
+		},
+		seeMoreCollapsed: ({ toggleMore, action }) => <p style={customSeeMore} onClick={() => toggleMore(true)}>A custom See More message →</p>,
+		seeMore: ({ close }) => <div style={{ maxWidth: '100%', height: '100%', padding: 40, background: 'white' }}><h2>Just checking the see more feature.</h2><p style={{ textDecoration: 'underline' }} onClick={close}>Go on, close this popup.</p></div>,
+		duration: 5000
+	},
+		{
+		url: 'http://www.exit109.com/~dnn/clips/RW20seconds_1.mp4',
+		type: 'video'
+	},
+		{
+		url: 'https://picsum.photos/1080/1920',
+		seeMore: ({ close }) => <div style={{ maxWidth: '100%', height: '100%', padding: 40, background: 'white' }}><h2>Just checking the see more feature.</h2><p style={{ textDecoration: 'underline' }} onClick={close}>Go on, close this popup.</p></div>
+	},
+		{
 		content: ({ action, isPaused }) => {
 			return <div style={contentStyle}>
 				<h1>The new version is here.</h1>
@@ -179,25 +249,6 @@ const stories2 = [
 				<h3>Perfect. But there's more! →</h3>
 			</div>
 		}
-	},
-	{
-		content: ({ action, story }) => {
-			return <WithSeeMore story={story} action={action}><div style={{ background: 'snow', padding: 20, height: '100%' }}>
-				<h1 style={{ marginTop: '100%', marginBottom: 0 }}>🌝</h1>
-				<h1 style={{ marginTop: 5 }}>We have our good old image and video stories, just the same.</h1>
-			</div></WithSeeMore>
-		},
-		seeMoreCollapsed: ({ toggleMore, action }) => <p style={customSeeMore} onClick={() => toggleMore(true)}>A custom See More message →</p>,
-		seeMore: ({ close }) => <div style={{ maxWidth: '100%', height: '100%', padding: 40, background: 'white' }}><h2>Just checking the see more feature.</h2><p style={{ textDecoration: 'underline' }} onClick={close}>Go on, close this popup.</p></div>,
-		duration: 5000
-	},
-	{
-		url: 'https://picsum.photos/1080/1920',
-		seeMore: ({ close }) => <div style={{ maxWidth: '100%', height: '100%', padding: 40, background: 'white' }}><h2>Just checking the see more feature.</h2><p style={{ textDecoration: 'underline' }} onClick={close}>Go on, close this popup.</p></div>
-	},
-	{
-		url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-		type: 'video'
 	},
 	{
 		content: Story2
