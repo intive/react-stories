@@ -224,8 +224,11 @@ const stories2 = [
 		duration: 5000
 	},
 		{
-		url: 'https://i.imgur.com/uXjLgCl.gifv',
-		type: 'video'
+		url: 'https://intive.github.io/react-stories/RW20seconds_2.mp4',
+		type: 'video',
+		header: {
+			heading: 'credits http://www.exit109.com/~dnn/'
+		}
 	},
 		{
 		url: 'https://picsum.photos/1080/1920',
