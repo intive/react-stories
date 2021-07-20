@@ -8,7 +8,7 @@
 
 It's a fork from [https://github.com/mohitk05/react-insta-stories](https://github.com/mohitk05/react-insta-stories)
 
-Check out the ![demo page](https://intive.github.io/react-stories/)
+Check out the [demo page](https://intive.github.io/react-stories/)
 
 ![](./react-stories-demo.gif)
 <!-- ![](https://i.imgur.com/Y1s8FKb.png) -->
