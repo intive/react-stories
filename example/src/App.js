@@ -1,10 +1,18 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Stories, { WithSeeMore } from '@intive-org/react-stories'
 import './App.css';
 
 function App() {
 	const [webConsole, setWebConsole] = useState([])
 	const [isPlaying, setIsPlaying] = useState(true)
+	const [clickableAreaSettings, setClickableAreaSettings] = useState({
+		overlay: {},
+		leftPane: {},
+		rightPane:{}
+	})
+	const [configuration, setConfiguration] = useState({
+		showClickableArea: false
+	})
 
 	const updateWebConsole = (...args) =>  {
 		setWebConsole(prev => {
@@ -12,16 +20,58 @@ function App() {
 			return [].concat(prev)
 		})
 	}
+
+	useEffect(() => {
+		if (configuration.showClickableArea) {
+			setClickableAreaSettings(prev => {
+				return {
+					overlay: prev.overlay,
+					leftPane: {
+						...prev.leftPane,
+						backgroundColor: 'rgba(255,255,0, 0.3)',
+						border: 'solid 2px yellow',
+					},
+					rightPane: {
+						...prev.rightPane,
+						backgroundColor: 'rgba(255,255,0, 0.3)',
+						border: 'solid 2px yellow',
+					}
+				}
+			})
+		} else {
+			setClickableAreaSettings(prev => {
+				return {
+					overlay: prev.overlay,
+					leftPane: {
+						...prev.leftPane,
+						backgroundColor: null,
+						border: null,
+					},
+					rightPane: {
+						...prev.rightPane,
+						backgroundColor: null,
+						border: null,
+					}
+				}
+			})
+		}
+	}, [configuration])
+
 	return (
 		<div className="App">
 			<div className="left">
 				<h2>
-					<a rel="noopener noreferrer" href="https://www.npmjs.com/package/@intive-org/react-stories" target="_blank">@intive-org/react-stories</a>
-					<br />
+					<a rel="noopener noreferrer" href="https://www.npmjs.com/package/@intive-org/react-stories" target="_blank">
+					@intive-org/react-stories
+					</a>
+
+				</h2>
+				<p>
 					<a href="https://www.npmjs.com/package/react-insta-stories">
 						<img target="_blank" alt="NPM" src="https://img.shields.io/npm/v/@intive-org/react-stories.svg" />
 					</a>
-				</h2>
+					"semantic release", linter, master Ci test
+				</p>
 				<p>
 					Create Instagram like stories on the web using React
 				</p>
@@ -46,6 +96,27 @@ function App() {
 					</div>
 				</p>
 				<p>
+					<h3>Configuration</h3>
+					<p style={code}>
+						<div>
+							<input
+								id="configuration-clickable-areas"
+								type="checkbox" 
+								onChange={() => setConfiguration(prev => {
+									return {
+										...prev,
+										showClickableArea: !prev.showClickableArea
+									}
+								})}
+								defaultChecked={configuration.showClickableArea}
+						/>
+						<label for="configuration-clickable-areas" >
+							Show clickable areas
+						</label>
+						</div>
+					</p>
+				</p>
+				<p>
 					<h3>Console</h3>
 					<div style={code}>
 							{webConsole.map(item => {
@@ -64,12 +135,13 @@ function App() {
 					width={'100%'}
 					height={'100%'}
 					keyboardNavigation
-					defaultInterval={8000}
+					defaultInterval={1500}
 					stories={stories2}
-					onStoryEnd={(s, st) => updateWebConsole('story ended', s, st)}
-					onAllStoriesEnd={(s, st) => updateWebConsole('all stories ended', s, st)}
-					onStoryStart={(s, st) => updateWebConsole('story started', s, st)}
+					onStoryEnd={(s, st) => updateWebConsole('story with index ' + s +  ' ended')}
+					onAllStoriesEnd={(s, st) => updateWebConsole('all stories ended', s)}
+					onStoryStart={(s, st) => updateWebConsole('story with index ' + s + ' started')}
 					storyContainerStyles={{ borderRadius: 8, overflow: 'hidden' }}
+					clickableAreaStyles={clickableAreaSettings}
 				/>
 			</div>
 		</div>

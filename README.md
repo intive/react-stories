@@ -1,12 +1,16 @@
-<h1 style="margin: 0" align="center">react-insta-stories</h1>
-<p align="center">A React component for Instagram like stories</p>
-<div align="center">
-<img target="_blank" alt="NPM" src="https://img.shields.io/npm/v/@intive-org/react-stories.svg" />
-</div>
+@intive-org/react-stories
+---
+
+###A React component for Instagram like stories
+
+![](https://img.shields.io/npm/v/@intive-org/react-stories.svg)
 
 It's a fork from [https://github.com/mohitk05/react-insta-stories](https://github.com/mohitk05/react-insta-stories)
 
-<img height="600" src="https://i.imgur.com/Y1s8FKb.png" alt="Demo screenshot"/>
+
+![](./react-stories-demo.gif)
+<!-- ![](https://i.imgur.com/Y1s8FKb.png) -->
+
 
 ## Install
 
@@ -41,25 +45,135 @@ Here `stories` is an array of story objects, which can be of various types as de
 
 ## Props
 
-| Property               | Type            | Default                   | Description                                                                                                                                                         |
-| ---------------------- | --------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `stories`              | [String/Object] | `required`                | An array of image urls or array of story objects (options described below)                                                                                          |
-| `renderers` ⚡️        | [Object]        | `[]`                      | An array of renderer objects (options described below)                                                                                                              |
-| `defaultInterval`      | Number          | 1200                      | Milliseconds duration for which a story persists                                                                                                                    |
-| `loader`               | Component       | Ripple loader             | A loader component as a fallback until image loads from url                                                                                                         |
-| `header`               | Component       | Default header as in demo | A header component which sits at the top of each story. It receives the `header` object from the `story` object. Data for header to be sent with each story object. |
-| `storyContainerStyles` | Object          | `{}`                      | Styles object for the outer container                                                                                                                               |
-| `width`                | Number/String   | 360                       | Width of the component, e.g. 600 or '100vw' or 'inherit'                                                                                                            |
-| `height`               | Number/String   | 640                       | Height of the component, e.g. 1000 or '100%' or 'inherit'                                                                                                           |
-| `storyStyles`          | Object          | none                      | Override the default story styles mentioned below.                                                                                                                  |
-| `loop`                 | Boolean         | false                     | The last story loop to the first one and restart the stories.                                                                                                       |
-| **New props**          | ⭐️             | ⭐️                       | ⭐️                                                                                                                                                                 |
-| `isPaused`             | Boolean         | false                     | Toggle story playing state                                                                                                                                          |
-| `currentIndex`         | Number          | undefined                 | Set the current story index                                                                                                                                         |
-| `onStoryStart`         | Function        | -                         | Callback when a story starts                                                                                                                                        |
-| `onStoryEnd`           | Function        | -                         | Callback when a story ends                                                                                                                                          |
-| `onAllStoriesEnd`      | Function        | -                         | Callback when all stories in the array have ended                                                                                                                   |
-| `keyboardNavigation`   | Boolean         | false                     | Attaches arrow key listeners to navigate between stories if true. Also adds up arrow key listener for opening See More and Escape/down arrow for closing it         |
+- `stories` 
+	- Type: `[String/Object]`
+	- Required: `true`
+	- Description: An array of image urls or array of story objects (options described below).
+	- Default: `[]`
+
+- `renderers` ⚡️ 
+	- Type: `[Object]`
+	- Required: `false`
+	- Description: An array of renderer objects (options described below).
+	- Default: `[]`
+
+- `defaultInterval`
+	- Type: `Number`
+	- Required: `false`
+	- Description: Milliseconds duration for which a story persists.
+	- Default: `1200`
+
+- `loader`
+	- Type: `Component`
+	- Required: `false`
+	- Description: A loader component as a fallback until image loads from url.
+	- Default: Ripple loader
+
+- `header`
+	- Type: `Component`
+	- Required: `false`
+	- Description: A header component which sits at the top of each story. It receives the `header` object from the `story` object. Data for header to be sent with each story object.
+	- Default: Default header as in demo
+
+- `storyContainerStyles`
+	- Type: `Object`
+	- Required: `false`
+	- Description: Styles object for the outer container.
+	- Default: `{}`
+
+- `width`
+	- Type: `Number/String`
+	- Required: `false`
+	- Description: Width of the component, e.g. 600 or '100vw' or 'inherit'.
+	- Default: `360`
+
+- `height`
+	- Type: `Number/String`
+	- Required: `false`
+	- Description: Height of the component, e.g. 1000 or '100%' or 'inherit'.
+	- Default: `640`
+
+- `storyStyles`
+	- Type: `Object`
+	- Required: `false`
+	- Description: Override the default story styles mentioned below.
+	- Default: `{}`
+
+- `loop`
+	- Type: `Boolean`
+	- Required: `false`
+	- Description: The last story loop to the first one and restart the stories.
+	- Default: `false`
+
+- `isPaused`
+	- Type: `Boolean`
+	- Required: `false`
+	- Description: Toggle story playing state.
+	- Default: `false`
+
+- `currentIndex`
+	- Type: `Number`
+	- Required: `false`
+	- Description: Set the current story index.
+	- Default: `undefined`
+
+- `onStoryStart`
+	- Type: `Function`
+	- Required: `false`
+	- Description: Callback when a story starts.
+	- Default: `N/A`
+
+- `onStoryEnd`
+	- Type: `Function`
+	- Required: `false`
+	- Description: Callback when a story ends.
+	- Default: `N/A`
+
+- `onAllStoriesEnd`
+	- Type: `Function`
+	- Required: `false`
+	- Description: Callback when all stories in the array have ended.
+	- Default: `N/A`
+
+- `keyboardNavigation`
+	- Type: `Boolean`
+	- Required: `false`
+	- Description: Attaches arrow key listeners to navigate between stories if true. Also adds up arrow key listener for opening See More and Escape/down arrow for closing it.
+	- Default: `false`
+
+- `clickableAreaStyles`
+	- Type: `Object`
+	- Required: `false`
+	- Description: Allows to style the clickable/touchable areas for navigation previous/next.
+	- Default: 
+```javascript
+    {
+    	overlay: {
+	        position: 'absolute',
+	        height: 'inherit',
+	        width: 'inherit'
+    	},
+    	leftPane: {
+	        boxSizing: 'border-box',
+	        position: 'absolute',
+	        width: '50%',
+	        zIndex: 999,
+	        left:0,
+	        top:0,
+	        height: '100%'
+    	},
+    	rightPane: { 
+	        position: 'absolute',
+	        boxSizing: 'border-box',
+	        width: '50%',
+	        zIndex: 999,
+	        top:0,
+	        right: 0,
+	        height: '100%'
+    	}
+    }
+```
+
 
 ### Story object
 
