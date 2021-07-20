@@ -1,12 +1,12 @@
-import * as React from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import Spinner from '../components/Spinner';
 import { Renderer, Tester } from './../interfaces';
 import WithHeader from './wrappers/withHeader';
 import WithSeeMore from './wrappers/withSeeMore';
 
 export const renderer: Renderer = ({ story, action, isPaused, config, messageHandler }) => {
-    const [loaded, setLoaded] = React.useState(false);
-    const [muted, setMuted] = React.useState(false);
+    const [loaded, setLoaded] = useState(false);
+    const [muted, setMuted] = useState(true);
     const { width, height, loader, storyStyles } = config;
 
     let computedStyles = {
@@ -14,9 +14,9 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
         ...(storyStyles || {})
     }
 
-    let vid = React.useRef<HTMLVideoElement>(null);
+    let vid = useRef<HTMLVideoElement>(null);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (vid.current) {
             if (isPaused) {
                 vid.current.pause();
@@ -26,6 +26,14 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
         }
     }, [isPaused]);
 
+    useEffect(() => {
+        if (!loaded) {
+            action('pause', true)
+        }
+    }, [loaded])
+
+    // BUG: on slow network when the video is buffering the onWaiting function is called
+    // but after that this slide never goes back to playing
     const onWaiting = () => {
         action("pause", true);
     }
@@ -40,7 +48,6 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
         vid.current.play().then(() => {
             action('play');
         }).catch(() => {
-            setMuted(true);
             vid.current.play().finally(() => {
                 action('play');
             })
