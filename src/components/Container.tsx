@@ -31,7 +31,7 @@ export default function () {
     useEffect(() => {
         if (typeof currentIndex === 'number') {
             if (currentIndex >= 0 && currentIndex < stories.length) {
-                setCurrentIdWrapper(() => currentIndex)
+                setCurrentId(currentIndex)
             } else {
                 console.error('Index out of bounds. Current index was set to value more than the length of stories array.', currentIndex)
             }
@@ -75,39 +75,35 @@ export default function () {
         setBufferAction(!!bufferAction)
     }
 
-    const setCurrentIdWrapper = (callback) => {
+    const setCurrentIdWrapper = (callback: (a: number) => {direction: string, prev: number, nextIdx: number}) => {
         const {direction, prev, nextIdx} = callback(currentId)
         setCurrentId(nextIdx);
         onSlideTransition && onSlideTransition(direction, prev, nextIdx === prev ? undefined : nextIdx)
     }
 
     const previous = () => {
-        setCurrentIdWrapper(prev => {
+        setCurrentIdWrapper((prev: number) => {
             const nextIdx = prev > 0 ? prev - 1 : prev
             return {direction: 'left', prev, nextIdx}
         })
     }
 
     const next = () => {
-        const nextStoryIdForLoop = prev => {
+        const nextStoryIdForLoop = (prev: number) => {
             const nextIdx = (prev + 1) % stories.length
             return {direction: 'right', prev, nextIdx}
         }
-        const nextStoryId = prev => {
+        const nextStoryId = (prev: number) => {
             if (prev < stories.length - 1) {
                 const nextIdx = prev + 1
                 return {direction: 'right', prev, nextIdx}
             }
             
-            return {direction: 'right', prev}
+            return {direction: 'right', prev, nextIdx: prev}
         }
 
         if (isMounted.current) {
-            if (loop) {
-                setCurrentIdWrapper(nextStoryIdForLoop)
-            } else {
-                setCurrentIdWrapper(nextStoryId)
-            }
+            setCurrentIdWrapper(loop? nextStoryIdForLoop : nextStoryId)
         }
     }
 

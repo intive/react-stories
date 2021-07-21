@@ -11,7 +11,8 @@ function App() {
 		rightPane:{}
 	})
 	const [configuration, setConfiguration] = useState({
-		showClickableArea: false
+		showClickableArea: false,
+		loop: false
 	})
 
 	const updateWebConsole = (...args) =>  {
@@ -125,6 +126,22 @@ function App() {
 						</label>
 					</div>
 					<div>
+						<input
+							id="configuration-loop"
+							type="checkbox" 
+							onChange={() => setConfiguration(prev => {
+								return {
+									...prev,
+									loop: !prev.loop
+								}
+							})}
+							defaultChecked={configuration.loop}
+						/>
+						<label htmlFor="configuration-loop" >
+							Loop through slides
+						</label>
+					</div>
+					<div>
 					<input
 							id="configuration-stories-length"
 							type="checkbox" 
@@ -180,7 +197,7 @@ function App() {
 			
 			<div className="stories-container">
 				<Stories
-					loop
+					loop={configuration.loop}
 					isPaused={!isPlaying}
 					width={'100%'}
 					height={'100%'}
