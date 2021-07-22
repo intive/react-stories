@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Stories, { WithSeeMore } from '@intive-org/react-stories'
+import {customRenderer} from './custom-renderer'
 import './App.css';
 
 function App() {
@@ -14,6 +15,8 @@ function App() {
 		showClickableArea: false,
 		loop: false
 	})
+
+	const [customRenderers] = useState([customRenderer])
 
 	const updateWebConsole = (...args) =>  {
 		setWebConsole(prev => {
@@ -82,6 +85,8 @@ function App() {
 						<img target="_blank" alt="NPM" src="https://img.shields.io/npm/v/@intive-org/react-stories.svg" />
 					</a>
 					<img alt="Semantic Release" src="https://camo.githubusercontent.com/df1fd6655472a008d21057736be3b95a2bced4e9ea6db7c393e7c960a4d9e450/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2532302532302546302539462539332541362546302539462539412538302d73656d616e7469632d2d72656c656173652d6531303037392e737667" />
+					<img alt="MIT" src="https://img.shields.io/github/license/intive/react-stories"/>
+					<img alt="NPM Downloads" src="https://img.shields.io/npm/dt/@intive-org/react-stories"/>
 				</p>
 				<p>
 					Create Instagram like stories on the web using React
@@ -202,8 +207,9 @@ function App() {
 					width={'100%'}
 					height={'100%'}
 					keyboardNavigation
-					defaultInterval={5000}
+					defaultInterval={3000}
 					stories={stories2}
+					renderers={customRenderers}
 					onStoryEnd={(s, st) => updateWebConsole('story with index ' + s +  ' ended')}
 					onAllStoriesEnd={(s, st) => updateWebConsole('all stories ended', s)}
 					onStoryStart={(s, st) => updateWebConsole('story with index ' + s + ' started')}
@@ -240,14 +246,18 @@ const stories2 = [
 		seeMore: ({ close }) => <div style={{ maxWidth: '100%', height: '100%', padding: 40, background: 'white' }}><h2>Just checking the see more feature.</h2><p style={{ textDecoration: 'underline' }} onClick={close}>Go on, close this popup.</p></div>,
 		duration: 5000
 	},
-		{
+	{
 		url: 'https://intive.github.io/react-stories/RW20seconds_2.mp4',
 		type: 'video',
 		header: {
 			heading: 'credits http://www.exit109.com/~dnn/'
 		}
 	},
-		{
+	{
+		type: 'hcVideo',
+		title: 'Using custom renderer.',
+	},
+	{
 		url: 'https://picsum.photos/1080/1920',
 		seeMore: ({ close }) => <div style={{ maxWidth: '100%', height: '100%', padding: 40, background: 'white' }}><h2>Just checking the see more feature.</h2><p style={{ textDecoration: 'underline' }} onClick={close}>Go on, close this popup.</p></div>
 	},

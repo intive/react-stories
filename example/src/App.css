@@ -4,6 +4,9 @@ body {
 	font-family: sans-serif;
 	background: rgb(170,221,96);
 	background: linear-gradient(152deg, rgba(170,221,96,1) 0%, rgba(2,128,92,1) 45%, rgba(255,153,83,1) 100%);
+	background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
 }
 
 p {
