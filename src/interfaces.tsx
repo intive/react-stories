@@ -80,6 +80,11 @@ export type Tester = (story: Story) => {
     priority: number;
 };
 
+export type RenderersItem = {
+    renderer: Renderer,
+    tester: Tester
+}
+
 export interface StoryProps {
     story: Story;
     action: Action;

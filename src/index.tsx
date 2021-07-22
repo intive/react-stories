@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ReactInstaStoriesProps, GlobalCtx, Story, Tester, Renderer } from './interfaces'
+import { ReactInstaStoriesProps, GlobalCtx, Story, Tester, Renderer, RenderersItem } from './interfaces'
 import Container from './components/Container'
 import GlobalContext from './context/Global'
 import StoriesContext from './context/Stories';
@@ -9,7 +9,6 @@ import withHeader from './renderers/wrappers/withHeader'
 import withSeeMore from './renderers/wrappers/withSeeMore'
 
 const ReactInstaStories = function (props: ReactInstaStoriesProps) {
-    let renderers = props.renderers ? props.renderers.concat(defaultRenderers) : defaultRenderers;
     let context: GlobalCtx = {
         width: props.width,
         height: props.height,
@@ -28,13 +27,21 @@ const ReactInstaStories = function (props: ReactInstaStoriesProps) {
         clickableAreaStyles: props.clickableAreaStyles,
         onSlideTransition: props.onSlideTransition
     }
-    const [stories, setStories] = useState<{ stories: Story[] }>({ stories: generateStories(props.stories, renderers) });
+    const [stories, setStories] = useState<Story[]>([]);
+    const [localRenderers, setLocalRenderers] = useState<RenderersItem[]>(defaultRenderers);
+
     useEffect(() => {
-        setStories({ stories: generateStories(props.stories, renderers) });
+        const newRenderers = [].concat(localRenderers).concat(props.renderers)
+        setLocalRenderers(newRenderers)
+        setStories(generateStories(props.stories, newRenderers));
     }, [props.stories, props.renderers]);
 
+    if (stories.length === 0) {
+        return null
+    }
+
     return <GlobalContext.Provider value={context}>
-        <StoriesContext.Provider value={stories}>
+        <StoriesContext.Provider value={{stories: stories}}>
             <Container />
         </StoriesContext.Provider>
     </GlobalContext.Provider>
